@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { ImCancelCircle } from 'react-icons/im';
-import { deleteContact } from 'redux/contactsThunks';
+import { deleteContact } from 'redux/contacts/contactsThunks';
 import css from './ContactItem.module.css';
 
 export const ContactItem = ({ id, name, number }) => {

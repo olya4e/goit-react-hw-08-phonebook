@@ -1,29 +1,34 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { ContactForm } from './ContactForm/ContactForm ';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
-import { fetchContacts } from 'redux/contactsThunks';
-import { selectError, selectIsLoading } from 'redux/selectors';
-import css from './ContactForm/ContactForm.module.css';
+import { useDispatch } from 'react-redux';
+import { useEffect, lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Layout } from 'components/Layout/Layout';
+import { useAuth } from 'hooks/useAuth';
+import { refreshUser } from 'redux/auth/authOperations';
+
+const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
+const RegisterPage = lazy(() => import('../pages/RegisterPage/RegisterPage'));
+const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
+const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
-    dispatch(fetchContacts());
+    dispatch(refreshUser());
   }, [dispatch]);
 
-  return (
-    <div className={css.container}>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      <h2>Contacts</h2>
-      <Filter />
-      {isLoading && !error && <b>Request in progress ...</b>}
-      <ContactList />
-    </div>
+  return isRefreshing ? (
+    <b>Refreshing user ...</b>
+  ) : (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="*" element={<HomePage />} />
+      </Route>
+    </Routes>
   );
 };
