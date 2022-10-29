@@ -1,33 +1,16 @@
-.container {
-  width: 320px;
-  margin: 0 auto;
-}
-
-.form {
+.user {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 250px;
-  margin: 0;
-  padding: 10px;
-  border: 2px solid #004d00;
-  border-radius: 10px;
+  align-items: center;
+  padding: 5px;
 }
-.label {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-.input {
-  margin-bottom: 10px;
-  padding: 4px;
-  font-size: 16px;
-  border-radius: 3px;
+.userName {
+  color: #fff;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 .button {
   display: block;
-  margin: 20px auto;
   align-items: center;
   appearance: none;
   background-color: #fff;
@@ -42,13 +25,12 @@
   font-family: 'Google Sans', Roboto, Arial, sans-serif;
   font-size: 14px;
   font-weight: 500;
-  height: 48px;
   justify-content: center;
   letter-spacing: 0.25px;
   line-height: normal;
-  width: 150px;
+  width: 90px;
   overflow: visible;
-  padding: 2px 24px;
+  padding: 5px 5px;
   position: relative;
   text-align: center;
   text-transform: none;
@@ -76,6 +58,19 @@
   outline: none;
   border: 2px solid #4285f4;
 }
-.title {
-  text-align: center;
+.avatar {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 32px;
+  height: 32px;
+  fill: #fff;
+}
+.avatarWrapper {
+  margin: 0 auto;
+  position: relative;
+  border-radius: 50%;
+  background-color: #3967e7;
+  width: 48px;
+  height: 48px;
 }

@@ -1,11 +1,10 @@
-import Container from '@mui/material/Container';
 import { RegisterForm } from 'components/RegisterForm/RegisterForm';
 const RegisterPage = () => {
   return (
-    <Container maxWidth="sm">
-      <title>Registration</title>
+    <div className="container">
+      <h2>Registration</h2>
       <RegisterForm />
-    </Container>
+    </div>
   );
 };
 export default RegisterPage;

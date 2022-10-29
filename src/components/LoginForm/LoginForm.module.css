@@ -1,13 +1,7 @@
-.container {
-  width: 320px;
-  margin: 0 auto;
-}
-
 .form {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 250px;
   margin: 0;
   padding: 10px;
   border: 2px solid #004d00;
@@ -48,7 +42,7 @@
   line-height: normal;
   width: 150px;
   overflow: visible;
-  padding: 2px 24px;
+  padding: 10px 14px;
   position: relative;
   text-align: center;
   text-transform: none;
@@ -75,7 +69,4 @@
 .button:focus {
   outline: none;
   border: 2px solid #4285f4;
-}
-.title {
-  text-align: center;
 }
