@@ -15,7 +15,7 @@ export const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(dispatch(refreshUser()));
+    dispatch(refreshUser());
   }, [dispatch]);
 
   return (
