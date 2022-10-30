@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+import { axiosInstance } from 'redux/service/axiosConfig';
 
 const token = {
   set(token) {
@@ -12,20 +11,13 @@ const token = {
   },
 };
 
-// const setAuthHeader = token => {
-//   axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-// };
-
-// const clearAuthHeader = () => {
-//   axios.defaults.headers.common.Authorization = '';
-// };
-
 export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const response = await axios.post('/users/signup', credentials);
+      const response = await axiosInstance.post('/users/signup', credentials);
       token.set(response.data.token);
+
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.message);
@@ -37,7 +29,7 @@ export const logIn = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
     try {
-      const response = await axios.post('/users/login', credentials);
+      const response = await axiosInstance.post('/users/login', credentials);
       token.set(response.data.token);
       return response.data;
     } catch (err) {
@@ -60,15 +52,19 @@ export const refreshUser = createAsyncThunk(
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const persistedToken = state.auth.token;
-    if (persistedToken === null) {
-      return thunkAPI.rejectWithValue('Unable to fetch user');
+    console.log(persistedToken);
+
+    if (persistedToken !== null) {
+      try {
+        token.set(persistedToken);
+        const response = await axios.get('/users/current');
+        console.log(response.data);
+        return response.data;
+      } catch (err) {
+        token.unset();
+        return thunkAPI.rejectWithValue(err.message);
+      }
     }
-    try {
-      token.set(persistedToken);
-      const response = await axios.get('/users/current');
-      return response.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.message);
-    }
+    return thunkAPI.rejectWithValue('Unable to fetch user');
   }
 );

@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-export const API = axios.create({
+export const axiosInstance = axios.create({
   baseURL: 'https://connections-api.herokuapp.com',
 });
